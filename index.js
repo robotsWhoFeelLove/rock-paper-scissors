@@ -3,39 +3,32 @@ const options = ["Rock","Paper","Scissors"];
 function getComputerChoice() {
    let getRandomNum = Math.floor(Math.random()*3)+1;
    (getRandomNum === 1) ? result = "Rock":
-   (getRandomNum === 2) ?
-    result = "Paper":
+   (getRandomNum === 2) ? result = "Paper":
     result = "Scissors";
 
    console.log(result);
    return(result);
 }
 
-// getComputerChoice();
-// getUserChoice();
 
 function getUserChoice(){ 
     let choice = prompt("Rock, Paper, or Scissors?");
     let result = choice.slice(0,1).toUpperCase() + choice.slice(1).toLowerCase();
     getresult()
     function getresult() {
-        while (!options.includes(result)){
+        while (!options.includes(result)){      //loop through input until valid response
             if(!options.includes(result)){
                 validation = "Response did not pass validation. ";
-            } else {
+                } else {
                 validation = ""
-            }
+                }
             choice = prompt(validation + "Rock Paper or Scissors?");
             result = choice.slice(0,1).toUpperCase() + choice.slice(1).toLowerCase();
         }
     }
-
-        return(result);
-
-    } 
+    return(result);
+} 
   
-    
-
 
 function playRound(){
     let userScore = 0;
@@ -44,34 +37,41 @@ function playRound(){
     
     let computer = getComputerChoice();
     let user = getUserChoice();
-    // console.log("PC Chooses " +computer);
-    // console.log("Player Chooses " + user);
-
-    // }
-    // if (user === "failedValidation"){
-    //     user = getUserChoice();
-    if (user === computer){
-        gameResult = "You tied... womp womp 😬";i--;
-    }
-    else if (user === "Rock" && computer != "Paper"){
-        gameResult = "You win this round! 🫡";++userScore;
-    } else if (user === "Paper" && computer != "Scissors"){
-        gameResult = "You win this round! 😃";++userScore;
-    } else if (user === "Scissors" && computer != "Rock"){
-        gameResult = "You win this round! 🥳";++userScore;
-    } else {
-        gameResult = "You lose this round! 😫";++computerScore;
-    }
+   if (user === computer){
+        gameResult = "You tied... womp womp 😬";
+        i--;                                                //Prevent round invrement on tie
+        }
+        else if (user === "Rock" && computer != "Paper"){
+        gameResult = "You win this round! 🫡";
+        ++userScore;
+        } else if (user === "Paper" && computer != "Scissors"){
+        gameResult = "You win this round! 😃";
+        ++userScore;
+        } else if (user === "Scissors" && computer != "Rock"){
+        gameResult = "You win this round! 🥳";
+        ++userScore;
+        } else {
+        gameResult = "You lose this round! 😫";
+        ++computerScore;
+        }
     alert("Computer chooses " + computer + " and you chose "  
         + user + ". \n \n" + gameResult + ". \n \n Computer's score: " + 
         computerScore + "\n Your score: " + userScore);
+
+    if (userScore > 2) {
+        i=6
+        } else if (computerScore > 2) {
+        i=6
+        } 
 }
    if(userScore>computerScore){
-    alert("Congratulations!!! You win! \n Final Score: \n Computer Score: " + computerScore +"\n Your Score: " + userScore);
-    playAgain();
-   } else {
-    alert("You Lost! Too bad \n \n Final Score: \n Computer Score: " + computerScore +"\n Your Score: " + userScore);
-    playAgain();
+        alert("Congratulations!!! You win! \n \n Final Score: \n \n Computer Score: " + 
+        computerScore +"\n Your Score: " + userScore);
+        playAgain();
+        } else {
+        alert("You Lost! Too bad \n \n Final Score: \n \n Computer Score: " + 
+        computerScore +"\n Your Score: " + userScore);
+        playAgain();
    }
 }
 
