@@ -1,4 +1,8 @@
-const options = ["Rock","Paper","Scissors"];
+const display = document.querySelector("#display");
+let user;
+let userScore = 0;
+let computerScore = 0;
+
 
 function getComputerChoice() {
    let getRandomNum = Math.floor(Math.random()*3)+1;
@@ -10,36 +14,24 @@ function getComputerChoice() {
    return(result);
 }
 
+const buttons = document.querySelectorAll("button")
 
-function getUserChoice(){ 
-    let choice = prompt("Rock, Paper, or Scissors?");
-    let result = choice.slice(0,1).toUpperCase() + choice.slice(1).toLowerCase();
-    getresult()
-    function getresult() {
-        while (!options.includes(result)){      //loop through input until valid response
-            if(!options.includes(result)){
-                validation = "Response did not pass validation. ";
-                } else {
-                validation = ""
-                }
-            choice = prompt(validation + "Rock Paper or Scissors?");
-            result = choice.slice(0,1).toUpperCase() + choice.slice(1).toLowerCase();
-        }
-    }
-    return(result);
-} 
-  
+buttons.forEach((button) => {
+    button.addEventListener("click",() => {
+        let choice =(button.id);
+        user = choice.slice(0,1).toUpperCase() + choice.slice(1).toLowerCase();
+       console.log(user);
+       playRound(user);
+    });
+});
 
-function playRound(){
-    let userScore = 0;
-    let computerScore = 0;
-    for (i = 1; i <= 5; i++){
-    
+
+function playRound(user){
     let computer = getComputerChoice();
-    let user = getUserChoice();
+
    if (user === computer){
         gameResult = "You tied... womp womp 😬";
-        i--;                                                //Prevent round invrement on tie
+        ;                                             
         }
         else if (user === "Rock" && computer != "Paper"){
         gameResult = "You win this round! 🫡";
@@ -54,36 +46,37 @@ function playRound(){
         gameResult = "You lose this round! 😫";
         ++computerScore;
         }
-    alert("Computer chooses " + computer + " and you chose "  
-        + user + ". \n \n" + gameResult + ". \n \n Computer's score: " + 
-        computerScore + "\n Your score: " + userScore);
+        const roundResult = 
+        "Computer chooses " + computer + " and you chose "  
+        + user + ". <br> <br> " + gameResult + ". <br> <br> Computer's score: " + 
+        computerScore + "<br> Your score: " + userScore;
+        display.innerHTML=roundResult;
+        checkGameStatus()
+}
 
-    if (userScore > 2) {
-        i=6
-        } else if (computerScore > 2) {
-        i=6
+function checkGameStatus(){
+
+    if (userScore > 4 || computerScore > 4){
+        endResult();
         } 
+    console.log("User: "+userScore+"Computer: "+computerScore)
 }
+function endResult(){
    if(userScore>computerScore){
-        alert("Congratulations!!! You win! \n \n Final Score: \n \n Computer Score: " + 
-        computerScore +"\n Your Score: " + userScore);
-        playAgain();
+        finalResult = "Congratulations!!! You win! \r Final Score: <br> <br>Computer Score: " + 
+        computerScore +"<br> Your Score: " + userScore;
         } else {
-        alert("You Lost! Too bad \n \n Final Score: \n \n Computer Score: " + 
-        computerScore +"\n Your Score: " + userScore);
-        playAgain();
-   }
-}
+        finalResult ="You Lost! Too bad <br> <br> Final Score: <br> <br>Computer Score: " + 
+        computerScore +"<br> Your Score: " + userScore +
+        "<br> <br> <br> Select Rock, Paper, or Scissors to Play Again!";
+        }
+        userScore = 0;
+        computerScore = 0;
+      
+    display.innerHTML=finalResult;
+} 
 
-playRound();
 
-function playAgain(){
-    response = prompt("Play Again? y or n");
-    if(response === "y"){
-       playRound();
-    } else {
-        alert(":( Refresh the page if you change your mind.");
-    }
-}
+
 
 
